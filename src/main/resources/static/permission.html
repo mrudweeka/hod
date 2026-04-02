@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply for Permission</title>
+    <link rel="stylesheet" href="css/permission.css" />
+</head>
+<body>
+    <div class="page-wrap">
+        <section class="content-card">
+            <div class="card-header">
+                <h2>Create Permission Request</h2>
+                <p>Fill in the details below and submit your request.</p>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label for="hodSelect">Select HOD</label>
+                    <select id="hodSelect">
+                        <option value="">Loading HODs...</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="reason">Reason / Event Name</label>
+                    <input type="text" id="reason" placeholder="Ex: Smart India Hackathon 2026" />
+                </div>
+
+                <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate" />
+                </div>
+
+                <div class="form-group">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" />
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="description">Description</label>
+                    <textarea id="description" placeholder="Enter purpose, event details, location, team info, etc."></textarea>
+                </div>
+            </div>
+
+            <button class="primary-btn" onclick="createRequest()">Submit Request</button>
+        </section>
+    </div>
+
+    <script src="js/permission.js"></script>
+</body>
+</html>

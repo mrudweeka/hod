@@ -1,161 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EventPass - Student Dashboard</title>
-    <link rel="stylesheet" href="css/student.css">
+    <link rel="stylesheet" href="css/student.css" />
 </head>
 <body>
-
-<div class="app-layout">
-
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-icon">EP</div>
-            <div>
-                <h2>EventPass</h2>
-                <p>Student Portal</p>
-            </div>
-        </div>
-
-        <div class="menu-title">MAIN MENU</div>
-        <nav class="nav-menu">
-            <a href="#" class="nav-item active">Dashboard</a>
-            <a href="#requestFormCard" class="nav-item">Apply for Permission</a>
-            <a href="#requestsCard" class="nav-item">My Requests</a>
-            <a href="#requestsCard" class="nav-item">Upload Certificate</a>
-            <a href="#" class="nav-item">Reminders</a>
-        </nav>
-
-        <div class="menu-title">ACCOUNT</div>
-        <nav class="nav-menu">
-            <a href="#" class="nav-item">Profile</a>
-            <a href="#" class="nav-item" onclick="logout()">Logout</a>
-        </nav>
-    </aside>
-
-    <!-- Main -->
-    <main class="main-content">
-
-        <header class="topbar">
-            <div>
-                <h1>Dashboard</h1>
-                <p>Welcome back! Submit your permission request here.</p>
-            </div>
-            <div class="user-box">
-                <div class="user-avatar" id="userInitial">S</div>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">EP</div>
                 <div>
-                    <div class="user-name" id="studentName">Student</div>
-                    <div class="user-role">Student</div>
+                    <h2>EventPass</h2>
+                    <p>Student Portal</p>
                 </div>
             </div>
-        </header>
 
-        <!-- Stats -->
-        <section class="stats-grid">
-            <div class="stat-card green">
-                <div class="stat-icon">✔</div>
+            <div class="menu-title">MAIN MENU</div>
+           <nav class="nav-menu">
+    <a href="#" class="nav-item active" data-page="dashboard" onclick="showDashboard(event)">Dashboard</a>
+    <a href="#" class="nav-item" data-page="permission" onclick="loadPage(event, 'permission.html', 'Apply for Permission')">Apply for Permission</a>
+    <a href="#" class="nav-item" data-page="request" onclick="loadPage(event, 'request.html', 'My Requests')">My Requests</a>
+    <a href="#" class="nav-item" data-page="certificate" onclick="loadPage(event, 'certificate.html', 'Upload Certificate')">Upload Certificate</a>
+    <a href="#" class="nav-item">Reminders</a>
+</nav>
+
+            <div class="menu-title">ACCOUNT</div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item">Profile</a>
+                <a href="#" class="nav-item" onclick="logout()">Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Right Content -->
+        <main class="main-content">
+            <header class="topbar">
                 <div>
-                    <h3 id="approvedCount">0</h3>
-                    <p>Requests Approved</p>
-                </div>
-            </div>
-
-            <div class="stat-card orange">
-                <div class="stat-icon">⬆</div>
-                <div>
-                    <h3 id="certificateCount">0</h3>
-                    <p>Pending Certificate Upload</p>
-                </div>
-            </div>
-
-            <div class="stat-card blue">
-                <div class="stat-icon">⏳</div>
-                <div>
-                    <h3 id="pendingCount">0</h3>
-                    <p>Requests Pending</p>
-                </div>
-            </div>
-
-            <div class="stat-card purple">
-                <div class="stat-icon">📄</div>
-                <div>
-                    <h3 id="totalCount">0</h3>
-                    <p>Total Requests</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Create Request -->
-        <section class="content-card" id="requestFormCard">
-            <div class="card-header">
-                <h2>Create Permission Request</h2>
-            </div>
-
-            <div class="form-grid">
-                <div class="form-group full-width">
-                    <label for="hodSelect">Select HOD</label>
-                    <select id="hodSelect">
-                        <option value="">Loading HODs...</option>
-                    </select>
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <p id="pageSubtitle">Welcome back! View your request summary here.</p>
                 </div>
 
-                <div class="form-group full-width">
-                    <label for="reason">Reason / Event Name</label>
-                    <input type="text" id="reason" placeholder="Ex: Smart India Hackathon 2026">
+                <div class="user-box">
+                    <div class="user-avatar" id="userInitial">S</div>
+                    <div>
+                        <div class="user-name" id="studentName">Student</div>
+                        <div class="user-role">Student</div>
+                    </div>
                 </div>
+            </header>
 
-                <div class="form-group">
-                    <label for="startDate">Start Date</label>
-                    <input type="date" id="startDate">
+            <!-- Dashboard Section -->
+            <section id="dashboardSection">
+                <section class="stats-grid">
+                    <div class="stat-card green">
+                        <div class="stat-icon">✔</div>
+                        <div>
+                            <h3 id="approvedCount">0</h3>
+                            <p>Requests Approved</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card orange">
+                        <div class="stat-icon">⬆</div>
+                        <div>
+                            <h3 id="certificateCount">0</h3>
+                            <p>Pending Certificate Upload</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card blue">
+                        <div class="stat-icon">⏳</div>
+                        <div>
+                            <h3 id="pendingCount">0</h3>
+                            <p>Requests Pending</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card purple">
+                        <div class="stat-icon">📄</div>
+                        <div>
+                            <h3 id="totalCount">0</h3>
+                            <p>Total Requests</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-card">
+                    <div class="card-header">
+                        <h2>Student Dashboard</h2>
+                    </div>
+                    <p class="dashboard-note">
+                        Use the left menu to apply for permission, view your requests, and upload certificates.
+                    </p>
+                </section>
+            </section>
+
+            <!-- Iframe Section -->
+            <section id="iframeSection" class="iframe-section hidden">
+                <div class="frame-card">
+                    <iframe id="contentFrame" src="" title="Student Content"></iframe>
                 </div>
+            </section>
+        </main>
+    </div>
 
-                <div class="form-group">
-                    <label for="endDate">End Date</label>
-                    <input type="date" id="endDate">
-                </div>
-
-                <div class="form-group full-width">
-                    <label for="description">Description</label>
-                    <textarea id="description" placeholder="Enter purpose, event details, location, team info, etc."></textarea>
-                </div>
-            </div>
-
-            <button class="primary-btn" onclick="createRequest()">Submit Request</button>
-        </section>
-
-        <!-- Request List -->
-        <section class="content-card" id="requestsCard">
-            <div class="card-header">
-                <h2>My Requests</h2>
-            </div>
-
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Event / Reason</th>
-                            <th>HOD</th>
-                            <th>Status</th>
-                            <th>End Date</th>
-                            <th>Certificate Due</th>
-                            <th>Upload Certificate</th>
-                        </tr>
-                    </thead>
-                    <tbody id="requestTable"></tbody>
-                </table>
-            </div>
-        </section>
-
-        <div class="info-banner">
-            Please upload your certificate within 3 days after event completion. Late submission may be marked as overdue.
-        </div>
-
-    </main>
-</div>
-
-<script src="js/student.js"></script>
+    <script src="js/student.js"></script>
 </body>
 </html>
+
